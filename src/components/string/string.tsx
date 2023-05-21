@@ -5,22 +5,15 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./string.module.css";
 import { ElementStates } from "../../types/element-states";
 import { Circle } from "../ui/circle/circle";
-
-type TItem = {
-  value: string;
-  color: ElementStates;
-}
+import { timeDelay } from "../../utils/constants";
+import { TItem } from "../../utils/types";
 
 export const StringComponent: React.FC = () => {
-  const [inputValue, setInpetValue] = useState('');
+  const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [array, setArray] = useState<TItem[]>([]);
   const TIMEOUT = 1000;
   const MAX_INPUT_LENGTH = 12;
-
-  const timeDelay = async(ms: number) => await new Promise<void>((resolve) => {
-    setTimeout(() => resolve(), ms)
-  })
 
   const swapItem = (arr: TItem[], i: number, j: number) => {
     const tmp = arr[i];
@@ -29,7 +22,7 @@ export const StringComponent: React.FC = () => {
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInpetValue(e.target.value);
+    setInputValue(e.target.value);
   };
 
   const reverseString = async (inputArray: TItem[]) => {
@@ -78,6 +71,8 @@ export const StringComponent: React.FC = () => {
     <SolutionLayout title="Строка">
       <form className={styles.form} onSubmit={onSubmit}>
         <Input
+          type="text"
+          value={inputValue}
           isLimitText={true}
           maxLength={MAX_INPUT_LENGTH}
           onChange={handleChange}
