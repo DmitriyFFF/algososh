@@ -1,0 +1,33 @@
+.form {
+  display: flex;
+  max-width: 980px;
+  justify-content: center;
+  margin: 0 auto;
+  /* gap: 12px; */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  height: 340px;
+  margin-top: 48px;
+
+  /* gap: 16px; */
+  /* margin: 0 auto; */
+}
+
+.radioContainer {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-right: 52px;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 80px;
+}

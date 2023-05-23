@@ -5,7 +5,7 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import styles from "./string.module.css";
 import { ElementStates } from "../../types/element-states";
 import { Circle } from "../ui/circle/circle";
-import { timeDelay } from "../../utils/constants";
+import { swapItem, timeDelay } from "../../utils/constants";
 import { TItem } from "../../utils/types";
 
 export const StringComponent: React.FC = () => {
@@ -14,12 +14,6 @@ export const StringComponent: React.FC = () => {
   const [array, setArray] = useState<TItem[]>([]);
   const TIMEOUT = 1000;
   const MAX_INPUT_LENGTH = 12;
-
-  const swapItem = (arr: TItem[], i: number, j: number) => {
-    const tmp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = tmp;
-  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
