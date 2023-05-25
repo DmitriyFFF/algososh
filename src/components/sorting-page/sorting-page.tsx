@@ -11,11 +11,14 @@ import { swapItem, timeDelay } from "../../utils/constants";
 // import { TIMEOUT } from "dns";
 
 export const SortingPage: React.FC = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState({
+    isLoading: false,
+    isAscending: false,
+    isDescending: false
+  });
   const [array, setArray] = useState<TSortItem[]>([]);
   const [radioName, setRadioName] = useState("Выбор");
-  const TIMEOUT = 1000;
-
+  const TIMEOUT = 500;
 
   const randomArr = () => {
     const minLen = 3;
@@ -33,13 +36,13 @@ export const SortingPage: React.FC = () => {
     setArray(newArray);
   };
 
-  const choiceSort = async(arr: TSortItem[], sorting: Direction) => {
-    // if (sorting === Direction.Ascending) {
-    //   setIsLoading(true);
-    // } else {
-    //   setIsLoading(false);
-    // }
-    setIsLoading(true);
+  const choiceSort = async(arr: TSortItem[], sort: Direction) => {
+    if (sort === Direction.Ascending) {
+      setIsLoading({isLoading: true, isAscending: true, isDescending: false});
+    } else {
+      setIsLoading({isLoading: true, isAscending: false, isDescending: true});
+    }
+    // setIsLoading(true);
 
     for (let i = 0; i < arr.length; i++) {
       let temp = i;
@@ -50,11 +53,11 @@ export const SortingPage: React.FC = () => {
         setArray([...arr]);
         await timeDelay(TIMEOUT);
 
-        if ((sorting === Direction.Ascending) && (arr[j].value < arr[temp].value)) {
+        if ((sort === Direction.Ascending) && (arr[j].value < arr[temp].value)) {
           temp = j;
           swapItem(arr, j, temp);
           setArray([...arr]);
-        } else if ((sorting === Direction.Descending) && (arr[j].value > arr[temp].value)) {
+        } else if ((sort === Direction.Descending) && (arr[j].value > arr[temp].value)) {
           temp = j;
           swapItem(arr, j, temp);
           setArray([...arr]);
@@ -67,39 +70,46 @@ export const SortingPage: React.FC = () => {
       swapItem(arr, i, temp);
       setArray([...arr]);
     }
-    setIsLoading(false);
+    setIsLoading({isLoading: false, isAscending: false, isDescending: false});
   };
 
-  const bubbleSort = async(arr: TSortItem[], sorting: Direction) => {
-    setIsLoading(true);
+  const bubbleSort = async(arr: TSortItem[], sort: Direction) => {
+    // setIsLoading(true);
+    if (sort === Direction.Ascending) {
+      setIsLoading({isLoading: true, isAscending: true, isDescending: false});
+    } else {
+      setIsLoading({isLoading: true, isAscending: false, isDescending: true});
+    }
+
     for (let i = 0; i < arr.length; i++) {
-      for (let j = i + 1; j < arr.length - 1; j++) {
+      for (let j = 0; j < arr.length - i - 1; j++) {
         arr[j].color = ElementStates.Changing;
         arr[j + 1].color = ElementStates.Changing;
 
-        setArray([...arr]);
+        // setArray([...arr]);
         await timeDelay(TIMEOUT);
 
-        if ((sorting === Direction.Ascending) && (arr[j].value > arr[j + 1].value)) {
+        if ((sort === Direction.Ascending) && (arr[j].value > arr[j + 1].value)) {
           swapItem(arr, j, j + 1);
-        } else if ((sorting === Direction.Descending) && (arr[j].value < arr[j + 1].value)) {
+        } else if ((sort === Direction.Descending) && (arr[j].value < arr[j + 1].value)) {
           swapItem(arr, j, j + 1);
         }
         arr[j].color = ElementStates.Default
         arr[j + 1].color = ElementStates.Default;
         setArray([...arr]);
       }
-      arr[i].color = ElementStates.Modified;
-      setArray([...arr]);
+      arr[arr.length - i - 1].color = ElementStates.Modified;
+      // setArray([...arr]);
     }
-    setIsLoading(false);
+    setIsLoading({isLoading: false, isAscending: false, isDescending: false});
+    // setIsLoading(false);
   };
 
-  const onSortClick = (sorting: Direction) => {
+  const onSortClick = (sort: Direction) => {
     if (radioName === "Выбор") {
-      choiceSort(array, sorting);
+      choiceSort(array, sort);
     } else if (radioName === "Пузырёк") {
-      bubbleSort(array, sorting);
+      bubbleSort(array, sort);
     }
   };
 
@@ -117,14 +127,42 @@ export const SortingPage: React.FC = () => {
     <SolutionLayout title="Сортировка массива">
       <form className={styles.form} onSubmit={onSubmit}>
         <div className={styles.radioContainer}>
-          <RadioInput label="Выбор" checked={radioName === "Выбор" ? true : false} value="Выбор" onChange={onChange} />
-          <RadioInput label="Пузырёк" checked={radioName === "Пузырёк" ? true : false} value="Пузырёк" onChange={onChange} />
+          <RadioInput
+            label="Выбор"
+            checked={radioName === "Выбор" ? true : false}
+            value="Выбор"
+            onChange={onChange}
+          />
+          <RadioInput
+            label="Пузырёк"
+            checked={radioName === "Пузырёк" ? true : false}
+            value="Пузырёк"
+            onChange={onChange}
+          />
         </div>
         <div className={styles.buttonContainer}>
-          <Button type="button" text="По возрастанию" sorting={Direction.Ascending} onClick={() => {onSortClick(Direction.Ascending)}} disabled={isLoading ? true : false} />
-          <Button type="button" text="По убыванию" sorting={Direction.Descending} onClick={() => {onSortClick(Direction.Descending)}} disabled={isLoading ? true : false} />
+          <Button
+            type="button"
+            text="По возрастанию"
+            sorting={Direction.Ascending}
+            isLoader={isLoading.isAscending}
+            onClick={() => {onSortClick(Direction.Ascending)}}
+            disabled={isLoading.isDescending}
+          />
+          <Button
+            type="button"
+            text="По убыванию"
+            sorting={Direction.Descending}
+            isLoader={isLoading.isDescending}
+            onClick={() => {onSortClick(Direction.Descending)}}
+            disabled={isLoading.isAscending}
+          />
         </div>
-        <Button type="submit" text="Новый массив" isLoader={isLoading} />
+        <Button
+          type="submit"
+          text="Новый массив"
+          disabled={isLoading.isLoading}
+        />
       </form>
       <div className={styles.container}>
         {array.map((item, index) => (
