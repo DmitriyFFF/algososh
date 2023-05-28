@@ -17,7 +17,7 @@ export const StackPage: React.FC = () => {
   const MAX_INPUT_LENGTH = 4;
   const TIMEOUT = 500;
   // const stack = new Stack<TItem>();
-  console.log(stack)
+  // console.log(stack)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
