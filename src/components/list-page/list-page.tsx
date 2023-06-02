@@ -17,17 +17,18 @@ import styles from "./list.module.css"
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { timeDelay } from "../../utils/constants";
-import { List } from "./list-class";
+import { LinkedList } from "./list-class";
 
 
 export const ListPage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
+  const [inputIndex, setInputIndex] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [array, setArray] = useState<TItem[]>([]);
   const MAX_INPUT_LENGTH = 4;
   const MAX_ARRAY_LENGTH = 7;
   const TIMEOUT = 500;
-  const [list] = useState(new List<TItem>(MAX_ARRAY_LENGTH));
+  // const [list] = useState(new LinkedList<TItem>());
 
   // useEffect(() => {
   //   setArray(Array(MAX_ARRAY_LENGTH).fill({value: '', color: ElementStates.Default}));
@@ -35,6 +36,10 @@ export const ListPage: React.FC = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
+  };
+
+  const handleChangeIndex = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputIndex(e.target.value);
   };
 
   const handleQueue = async (e: FormEvent<HTMLFormElement>) => {
@@ -108,11 +113,11 @@ export const ListPage: React.FC = () => {
           <Input
             type="number"
             placeholder="Введите индекс"
-            value={inputValue}
+            value={inputIndex}
             extraClass={styles.input}
             // isLimitText={true}
             // maxLength={MAX_INPUT_LENGTH}
-            onChange={handleChange}
+            onChange={handleChangeIndex}
           />
           <Button
             type="submit"

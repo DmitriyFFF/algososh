@@ -1,64 +1,90 @@
-interface IList<T> {
-  enqueue: (item: T) => void;
-  dequeue: () => void;
-  getHead: () => number;
-  getTail: () => number;
-  clear: () => void;
-  // peak: () => T | null;
-  // getItems: () => (T | null)[];
+export class Node<T> {
+  value: T
+  next: Node<T> | null
+  constructor(value: T, next?: Node<T> | null) {
+    this.value = value;
+    this.next = (next === undefined ? null : next);
+  }
 }
 
-export class List<T> implements IList<T> {
-  private container: (T | null)[] = [];
-  private head = 0;
-  private tail = 0;
-  private readonly size: number = 0;
-  private length: number = 0;
+interface ILinkedList<T> {
+  append: (element: T) => void;
+  prepend: (element: T) => void;
+  deleteHead: () => void;
+  deleteTail: () => void;
+  addByIndex: (element: T, index: number) => void;
+  deleteByIndex: (index: number) => void;
+  getSize: () => number;
+  print: () => void;
+}
 
-  constructor(size: number) {
-    this.size = size;
-    this.container = Array(size);
+export class LinkedList<T> implements ILinkedList<T> {
+  private head: Node<T> | null;
+  private tail: Node<T> | null;
+  private size: number;
+  constructor(initArray: T[]) {
+    this.head = null;
+    this.tail = null;
+    this.size = 0;
+    initArray.forEach(item => this.append(item));
   }
 
-  enqueue = (item: T) => {
-    if (this.length >= this.size) {
-      throw new Error("Maximum length exceeded");
+  append(element: T) {
+    const node = new Node(element);
+    if (!this.head || !this.tail) {
+      this.head = node;
+      this.tail = node;
+      return this;
     }
-    this.container[this.tail % this.size] = item;
-    this.tail ++;
-    this.length ++;
-  };
+    this.tail.next = node;
+    this.tail = node;
+    this.size++;
 
-  dequeue = () => {
-    if (this.isEmpty()) {
-      throw new Error("No elements in the queue");
+    // return this;
+  }
+
+  prepend(element: T) {
+    const node = new Node(element);
+    if (!this.tail) {
+      this.tail = node;
+      // this.head = node;
+      // this.head.next = null;
+      // return this;
     }
-    this.container[this.head % this.size] = null;
-    this.head ++;
-    this.length --;
-  };
+    // this.tail.next = node;
+    // this.tail = node;
+    this.size++;
 
-  // peak = (): T | null => {
-  //   if (this.isEmpty()) {
-  //     throw new Error("No elements in the queue");
-  //   }
-  //   return this.container[this.head % this.size];
-  // };
+    // return this;
+  }
 
-  getHead = (): number => this.head;
+  deleteHead() {
 
-  getTail = (): number => this.tail;
+  }
 
-  // getItems = (): (T | null)[] => {
-  //   return [...this.container];
-  // };
+  deleteTail() {
 
-  clear = (): void => {
-    this.container = [];
-    this.head = 0;
-    this.tail = 0;
-    this.length = 0;
-  };
+  }
 
-  isEmpty = () => this.length === 0;
+  addByIndex() {
+
+  }
+
+  deleteByIndex() {
+
+  }
+
+  getSize() {
+    return this.size;
+  }
+
+  print() {
+    let curr = this.head;
+    let res = '';
+    while (curr) {
+      res += `${curr.value} `;
+      curr = curr.next;
+    }
+    console.log(res);
+  }
 }
