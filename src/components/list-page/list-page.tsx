@@ -74,7 +74,7 @@ export const ListPage: React.FC = () => {
     array[0] = {...array[0], color: ElementStates.Default};
 
     setArray([...array]);
-    await timeDelay(TIMEOUT);
+    // await timeDelay(TIMEOUT);
     setInputValue('');
     setIsLoadingAddHead(false);
   };
@@ -97,29 +97,39 @@ export const ListPage: React.FC = () => {
     array[array.length - 1] = {...array[array.length - 1], color: ElementStates.Default};
 
     setArray([...array]);
-    await timeDelay(TIMEOUT);
+    // await timeDelay(TIMEOUT);
     setInputValue('');
     setIsLoadingAddTail(false);
   };
 
   const handleDeleteHead =async() => {
-    // array[queue.getHead()].color = ElementStates.Changing
-    // setArray([...array]);
+    setIsLoadingDeleteHead(true);
+    list.deleteHead();
+
+    array[0] = {...array[0], downCircle: true, value: '', smallCircle: {value: array[0].value, color: ElementStates.Changing}};
+    setArray([...array]);
+    await timeDelay(TIMEOUT);
+    array[0] = {...array[0], downCircle: false};
+
+    array.shift();
+    setArray([...array]);
     // await timeDelay(TIMEOUT);
-    // array[queue.getHead()].value = '';
-    // array[queue.getHead()].color = ElementStates.Default;
-    // setArray([...array]);
-    // queue.dequeue();
+    setIsLoadingDeleteHead(false);
   };
 
   const handleDeleteTail =async() => {
-    // array[queue.getHead()].color = ElementStates.Changing
-    // setArray([...array]);
+    setIsLoadingDeleteTail(true);
+    list.deleteHead();
+
+    array[array.length - 1] = {...array[array.length - 1], downCircle: true, value: '', smallCircle: {value: array[array.length - 1].value, color: ElementStates.Changing}};
+    setArray([...array]);
+    await timeDelay(TIMEOUT);
+    array[array.length - 1] = {...array[array.length - 1], downCircle: false};
+
+    array.pop();
+    setArray([...array]);
     // await timeDelay(TIMEOUT);
-    // array[queue.getHead()].value = '';
-    // array[queue.getHead()].color = ElementStates.Default;
-    // setArray([...array]);
-    // queue.dequeue();
+    setIsLoadingDeleteTail(false);
   };
 
   const handleAddByIndex =async() => {
