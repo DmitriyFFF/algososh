@@ -8,12 +8,14 @@ import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { timeDelay } from "../../utils/constants";
 import { LinkedList } from "./list-class";
+import { ArrowIcon } from "../ui/icons/arrow-icon";
 
 type TListItem = {
   value: string;
   color: ElementStates;
   upCircle?: boolean;
   downCircle?: boolean;
+  arrow?: boolean;
   smallCircle?: {
     value: string,
     color: ElementStates
@@ -23,7 +25,7 @@ type TListItem = {
 
 export const ListPage: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>('');
-  const [inputIndex, setInputIndex] = useState('');
+  const [inputIndex, setInputIndex] = useState<number>(0);
   const [array, setArray] = useState<TListItem[]>([
     {value: '0', color: ElementStates.Default},
     {value: '34', color: ElementStates.Default},
@@ -39,7 +41,7 @@ export const ListPage: React.FC = () => {
 
   const MAX_INPUT_LENGTH = 4;
   const MAX_ARRAY_LENGTH = 7;
-  const TIMEOUT = 500;
+  const TIMEOUT = 1000;
   // const [list] = useState(new LinkedList<TListItem>(array));
   const list = new LinkedList<string>([]);
 
@@ -53,7 +55,7 @@ export const ListPage: React.FC = () => {
   };
 
   const handleChangeIndex = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputIndex(e.target.value);
+    setInputIndex(Number(e.target.value));
   };
 
   const handleAddHead = async () => {
@@ -133,16 +135,48 @@ export const ListPage: React.FC = () => {
   };
 
   const handleAddByIndex =async() => {
-    // array[queue.getHead()].color = ElementStates.Changing
-    // setArray([...array]);
+    setIsLoadingAddIndex(true);
+    list.addByIndex(inputValue, inputIndex);
+    array[0] = {...array[0], upCircle: true, smallCircle: {value: inputValue, color: ElementStates.Changing}};
+    setArray([...array]);
+    await timeDelay(TIMEOUT);
+
+    let currentIndex = 1;
+    while (currentIndex <= inputIndex) {
+      array[currentIndex] = {...array[currentIndex], upCircle: true, smallCircle: {value: inputValue, color: ElementStates.Changing}};
+      // setArray([...array]);
+      array[currentIndex - 1] = {...array[currentIndex - 1], upCircle: false, color: ElementStates.Changing, arrow: true};
+      currentIndex ++;
+      setArray([...array]);
+      await timeDelay(TIMEOUT);
+    }
+
+    array[inputIndex] = {...array[inputIndex], upCircle: false};
+    array.splice(inputIndex, 0, {value: inputValue, color: ElementStates.Modified})
+    setArray([...array]);
+    await timeDelay(TIMEOUT);
+
+    array.forEach(item => {
+      return (
+        item.color = ElementStates.Default, item.arrow = false
+        )
+      }
+    );
+    setArray([...array]);
     // await timeDelay(TIMEOUT);
-    // array[queue.getHead()].value = '';
-    // array[queue.getHead()].color = ElementStates.Default;
-    // setArray([...array]);
-    // queue.dequeue();
+    setInputIndex(0);
+    setInputValue('');
+
+    setIsLoadingAddIndex(false);
   };
 
   const handleDeleteByIndex =async() => {
+    setIsLoadingDeleteIndex(true);
+
+
+
+    setIsLoadingDeleteIndex(false);
+
     // array[queue.getHead()].color = ElementStates.Changing
     // setArray([...array]);
     // await timeDelay(TIMEOUT);
@@ -239,36 +273,39 @@ export const ListPage: React.FC = () => {
       </form>
       <div className={styles.circleContainer}>
         {array.map((item, index) => (
-          <div className={styles.circleItem} key={index}>
-            {
-              item.upCircle &&
+          <>
+            <div className={styles.circleItem} key={index}>
+              {item.upCircle &&
+                <Circle
+                  letter={item.smallCircle?.value}
+                  state={item.smallCircle?.color}
+                  isSmall={true}
+                  extraClass={styles.upCircle}
+                />
+              }
               <Circle
-                letter={item.smallCircle?.value}
-                state={item.smallCircle?.color}
-                isSmall={true}
-                extraClass={styles.upCircle}
+                letter={item.value}
+                // key={index}
+                index={index}
+                state={item?.color}
+                head={(index === 0) && !item.upCircle ? 'head' : ''}
+                tail={(index === array.length - 1) && !item.downCircle ?  'tail' : ''}
+                // head={index=== queue.getHead() && !queue.isEmpty() ?   'head' : ''}
+                // tail={index === queue.getTail() - 1 && !queue.isEmpty() ?  'tail' : ''}
               />
+              {item.downCircle &&
+                <Circle
+                  letter={item.smallCircle?.value}
+                  state={item.smallCircle?.color}
+                  isSmall={true}
+                  extraClass={styles.downCircle}
+                />
+              }
+            </div>
+            {index !== array.length - 1 &&
+              <ArrowIcon fill={item.arrow ? "#D252E1" : "#0032FF"} />
             }
-            <Circle
-              letter={item.value}
-              // key={index}
-              index={index}
-              state={item?.color}
-              head={(index === 0) && !item.upCircle ? 'head' : ''}
-              tail={(index === array.length - 1) && !item.downCircle ? 'tail' : ''}
-              // head={index=== queue.getHead() && !queue.isEmpty() ? 'head' : ''}
-              // tail={index === queue.getTail() - 1 && !queue.isEmpty() ? 'tail' : ''}
-            />
-            {
-              item.downCircle &&
-              <Circle
-                letter={item.smallCircle?.value}
-                state={item.smallCircle?.color}
-                isSmall={true}
-                extraClass={styles.downCircle}
-              />
-            }
-          </div>
+          </>
 
         ))}
       </div>
