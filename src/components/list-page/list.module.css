@@ -18,7 +18,7 @@
   /* margin-right: 80px; */
 }
 
-.circleContainer {
+.linkedList {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,14 @@
   gap: 16px;
 }
 
-.circleItem {
+.circleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+
+.circleItems {
   display: flex;
   position: relative;
   flex-direction: column;

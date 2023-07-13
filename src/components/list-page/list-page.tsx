@@ -62,7 +62,14 @@ export const ListPage: React.FC = () => {
     setIsLoadingAddHead(true);
     list.prepend(inputValue);
 
-    array[0] = {...array[0], upCircle: true, smallCircle: {value: inputValue, color: ElementStates.Changing}};
+    array[0] = {
+      ...array[0],
+      upCircle: true,
+      smallCircle: {
+        value: inputValue,
+        color: ElementStates.Changing
+      }
+    };
     setArray([...array]);
     await timeDelay(TIMEOUT);
     array[0] = {...array[0], upCircle: false};
@@ -81,11 +88,18 @@ export const ListPage: React.FC = () => {
     setIsLoadingAddHead(false);
   };
 
-  const handleAddTail =async() => {
+  const handleAddTail = async() => {
     setIsLoadingAddTail(true);
     list.append(inputValue);
 
-    array[array.length - 1] = {...array[array.length - 1], upCircle: true, smallCircle: {value: inputValue, color: ElementStates.Changing}};
+    array[array.length - 1] = {
+      ...array[array.length - 1],
+      upCircle: true,
+      smallCircle: {
+        value: inputValue,
+        color: ElementStates.Changing
+      }
+    };
     setArray([...array]);
     await timeDelay(TIMEOUT);
     array[array.length - 1] = {...array[array.length - 1], upCircle: false};
@@ -104,11 +118,19 @@ export const ListPage: React.FC = () => {
     setIsLoadingAddTail(false);
   };
 
-  const handleDeleteHead =async() => {
+  const handleDeleteHead = async() => {
     setIsLoadingDeleteHead(true);
     list.deleteHead();
 
-    array[0] = {...array[0], downCircle: true, value: '', smallCircle: {value: array[0].value, color: ElementStates.Changing}};
+    array[0] = {
+      ...array[0],
+      downCircle: true,
+      value: '',
+      smallCircle: {
+        value: array[0].value,
+        color: ElementStates.Changing
+      }
+    };
     setArray([...array]);
     await timeDelay(TIMEOUT);
     array[0] = {...array[0], downCircle: false};
@@ -119,11 +141,18 @@ export const ListPage: React.FC = () => {
     setIsLoadingDeleteHead(false);
   };
 
-  const handleDeleteTail =async() => {
+  const handleDeleteTail = async() => {
     setIsLoadingDeleteTail(true);
     list.deleteHead();
 
-    array[array.length - 1] = {...array[array.length - 1], downCircle: true, value: '', smallCircle: {value: array[array.length - 1].value, color: ElementStates.Changing}};
+    array[array.length - 1] = {
+      ...array[array.length - 1],
+      downCircle: true, value: '',
+      smallCircle: {
+        value: array[array.length - 1].value,
+        color: ElementStates.Changing
+      }
+    };
     setArray([...array]);
     await timeDelay(TIMEOUT);
     array[array.length - 1] = {...array[array.length - 1], downCircle: false};
@@ -134,32 +163,51 @@ export const ListPage: React.FC = () => {
     setIsLoadingDeleteTail(false);
   };
 
-  const handleAddByIndex =async() => {
+  const handleAddByIndex = async() => {
     setIsLoadingAddIndex(true);
     list.addByIndex(inputValue, inputIndex);
-    array[0] = {...array[0], upCircle: true, smallCircle: {value: inputValue, color: ElementStates.Changing}};
+    array[0] = {
+      ...array[0],
+      upCircle: true,
+      smallCircle: {
+        value: inputValue,
+        color: ElementStates.Changing
+      }
+    };
     setArray([...array]);
     await timeDelay(TIMEOUT);
 
     let currentIndex = 1;
     while (currentIndex <= inputIndex) {
-      array[currentIndex] = {...array[currentIndex], upCircle: true, smallCircle: {value: inputValue, color: ElementStates.Changing}};
+      array[currentIndex] = {
+        ...array[currentIndex],
+        upCircle: true,
+        smallCircle: {
+          value: inputValue,
+          color: ElementStates.Changing
+        }
+      };
       // setArray([...array]);
-      array[currentIndex - 1] = {...array[currentIndex - 1], upCircle: false, color: ElementStates.Changing, arrow: true};
+      array[currentIndex - 1] = {
+        ...array[currentIndex - 1],
+        upCircle: false,
+        color: ElementStates.Changing,
+        arrow: true
+      };
       currentIndex ++;
       setArray([...array]);
       await timeDelay(TIMEOUT);
     }
 
     array[inputIndex] = {...array[inputIndex], upCircle: false};
-    array.splice(inputIndex, 0, {value: inputValue, color: ElementStates.Modified})
+    array.splice(inputIndex, 0, {value: inputValue, color: ElementStates.Modified});
     setArray([...array]);
     await timeDelay(TIMEOUT);
 
     array.forEach(item => {
       return (
         item.color = ElementStates.Default, item.arrow = false
-        )
+        );
       }
     );
     setArray([...array]);
@@ -170,27 +218,56 @@ export const ListPage: React.FC = () => {
     setIsLoadingAddIndex(false);
   };
 
-  const handleDeleteByIndex =async() => {
+  const handleDeleteByIndex = async() => {
     setIsLoadingDeleteIndex(true);
+    list.deleteByIndex(inputIndex);
+    // array[0] = {...array[0], upCircle: true, smallCircle: {value: inputValue, color: ElementStates.Changing}};
+    // setArray([...array]);
+    // await timeDelay(TIMEOUT);
 
+    let currentIndex = 0;
+    while (currentIndex < inputIndex) {
+      array[currentIndex] = {
+        ...array[currentIndex],
+        color: ElementStates.Changing,
+        arrow: true
+      };
+      currentIndex ++;
+      setArray([...array]);
+      await timeDelay(TIMEOUT);
+      // array[currentIndex - 1] = {...array[currentIndex - 1], upCircle: false, color: ElementStates.Changing, arrow: true};
+      // setArray([...array]);
+    }
+
+    array[inputIndex] = {
+      ...array[inputIndex],
+      value: '',
+      downCircle: true,
+      color: ElementStates.Changing,
+      arrow: false,
+      smallCircle: {
+        value: array[inputIndex].value,
+        color: ElementStates.Changing
+      }
+    };
+    setArray([...array]);
+    await timeDelay(TIMEOUT);
+
+    array.splice(inputIndex, 1);
+    array.forEach(item => {
+      return (
+        item.color = ElementStates.Default, item.arrow = false
+        );
+      }
+    );
+    setArray([...array]);
+    // await timeDelay(TIMEOUT);
+    setInputIndex(0);
+    // setInputValue('');
 
 
     setIsLoadingDeleteIndex(false);
-
-    // array[queue.getHead()].color = ElementStates.Changing
-    // setArray([...array]);
-    // await timeDelay(TIMEOUT);
-    // array[queue.getHead()].value = '';
-    // array[queue.getHead()].color = ElementStates.Default;
-    // setArray([...array]);
-    // queue.dequeue();
   };
-
-
-  // const handleClearQueue = () => {
-    // queue.clear();
-    // setArray(Array(7).fill({value: '', color: ElementStates.Default}));
-  // };
 
   return (
     <SolutionLayout title="Связный список">
@@ -271,10 +348,10 @@ export const ListPage: React.FC = () => {
           />
         </div>
       </form>
-      <div className={styles.circleContainer}>
+      <div className={styles.linkedList}>
         {array.map((item, index) => (
-          <>
-            <div className={styles.circleItem} key={index}>
+          <div className={styles.circleContainer} key={index}>
+            <div className={styles.circleItems}>
               {item.upCircle &&
                 <Circle
                   letter={item.smallCircle?.value}
@@ -305,8 +382,7 @@ export const ListPage: React.FC = () => {
             {index !== array.length - 1 &&
               <ArrowIcon fill={item.arrow ? "#D252E1" : "#0032FF"} />
             }
-          </>
-
+          </div>
         ))}
       </div>
     </SolutionLayout>
