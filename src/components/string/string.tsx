@@ -7,12 +7,12 @@ import { ElementStates } from "../../types/element-states";
 import { Circle } from "../ui/circle/circle";
 import { swapItem, timeDelay } from "../../utils/constants";
 import { TItem } from "../../utils/types";
+import { DELAY_IN_MS } from "../../constants/delays";
 
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [array, setArray] = useState<TItem[]>([]);
-  const TIMEOUT = 1000;
   const MAX_INPUT_LENGTH = 12;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +23,7 @@ export const StringComponent: React.FC = () => {
     setIsLoading(true);
     setArray([...inputArray]);
 
-    await timeDelay(TIMEOUT);
+    await timeDelay(DELAY_IN_MS);
 
     let start = 0;
     let end = inputValue.length - 1;
@@ -37,14 +37,14 @@ export const StringComponent: React.FC = () => {
         inputArray[end].color = ElementStates.Changing;
         setArray([...inputArray]);
 
-        await timeDelay(TIMEOUT);
+        await timeDelay(DELAY_IN_MS);
         swapItem(inputArray, start, end);
 
         inputArray[start].color = ElementStates.Modified;
         inputArray[end].color = ElementStates.Modified;
         setArray([...inputArray]);
 
-        await timeDelay(TIMEOUT);
+        await timeDelay(DELAY_IN_MS);
       }
       start ++;
       end --;
@@ -79,7 +79,7 @@ export const StringComponent: React.FC = () => {
       </form>
       <div className={styles.circleContainer}>
         {array.map((item, index) => (
-          <Circle letter={item.value} key={index} state={item.color}/>
+          <Circle letter={item.value} key={index} state={item.color} />
         ))}
       </div>
     </SolutionLayout>

@@ -4,8 +4,6 @@ interface IQueue<T> {
   getHead: () => number;
   getTail: () => number;
   clear: () => void;
-  // peak: () => T | null;
-  // getItems: () => (T | null)[];
 }
 
 export class Queue<T> implements IQueue<T> {
@@ -38,20 +36,9 @@ export class Queue<T> implements IQueue<T> {
     this.length --;
   };
 
-  // peak = (): T | null => {
-  //   if (this.isEmpty()) {
-  //     throw new Error("No elements in the queue");
-  //   }
-  //   return this.container[this.head % this.size];
-  // };
-
   getHead = (): number => this.head;
 
   getTail = (): number => this.tail;
-
-  // getItems = (): (T | null)[] => {
-  //   return [...this.container];
-  // };
 
   clear = (): void => {
     this.container = [];

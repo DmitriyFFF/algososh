@@ -3,15 +3,14 @@ import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Input } from "../ui/input/input";
 import { Button } from "../ui/button/button";
 import styles from "./fibonacci.module.css";
-// import { TItem } from "../../utils/types";
 import { Circle } from "../ui/circle/circle";
 import { timeDelay } from "../../utils/constants";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const FibonacciPage: React.FC = () => {
   const [inputValue, setInputValue] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [array, setArray] = useState<number[]>([]);
-  const TIMEOUT = 500;
   const MAX_NUMBER = 19;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -35,31 +34,22 @@ export const FibonacciPage: React.FC = () => {
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-    // const newArr = [];
     for(let i = 1; i <= inputValue + 1; i ++) {
       if(inputValue >= 1 && inputValue <= 19) {
         setArray((newArr) => [...newArr, calcFibonacci(i, memo)])
-        await timeDelay(TIMEOUT);
+        await timeDelay(SHORT_DELAY_IN_MS);
       }
     }
     setIsLoading(false);
-    await timeDelay(TIMEOUT);
-    setInputValue(0)
-
-    // if (inputValue.length > 0) {
-    //   const inputArr = inputValue.split("").map((value) => ({value, color: ElementStates.Default}));
-    //   reverseString(inputArr);
-    // }
+    await timeDelay(SHORT_DELAY_IN_MS);
+    setInputValue(0);
   };
-
-
 
   return (
     <SolutionLayout title="Последовательность Фибоначчи">
      <form className={styles.form} onSubmit={onSubmit}>
         <Input
           type="number"
-          // value={inputValue}
           isLimitText={true}
           max={MAX_NUMBER}
           onChange={handleChange}

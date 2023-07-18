@@ -8,6 +8,7 @@ import { Stack } from "./stack-class";
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
 import { timeDelay } from "../../utils/constants";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const StackPage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
@@ -15,9 +16,6 @@ export const StackPage: React.FC = () => {
   const [array, setArray] = useState<TItem[]>([]);
   const [stack] = useState(new Stack<TItem>());
   const MAX_INPUT_LENGTH = 4;
-  const TIMEOUT = 500;
-  // const stack = new Stack<TItem>();
-  // console.log(stack)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -30,7 +28,7 @@ export const StackPage: React.FC = () => {
     stack.push({value: inputValue, color: ElementStates.Changing});
     setInputValue('');
     setArray([...stack.getItems()]);
-    await timeDelay(TIMEOUT);
+    await timeDelay(SHORT_DELAY_IN_MS);
 
     const peak = stack.peak();
     if (peak) {
@@ -43,10 +41,9 @@ export const StackPage: React.FC = () => {
   const handlePopStack = async() => {
     array[array.length - 1].color = ElementStates.Changing;
     setArray([...array]);
-    await timeDelay(TIMEOUT);
+    await timeDelay(SHORT_DELAY_IN_MS);
     stack.pop();
     setArray([...stack.getItems()]);
-    // await timeDelay(TIMEOUT);
   };
 
   const handleClearStack = () => {

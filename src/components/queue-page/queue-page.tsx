@@ -6,8 +6,10 @@ import { TItem } from "../../utils/types";
 import styles from "./queue.module.css"
 import { Circle } from "../ui/circle/circle";
 import { ElementStates } from "../../types/element-states";
-import { timeDelay } from "../../utils/constants";
 import { Queue } from "./queue-class";
+import { timeDelay } from "../../utils/constants";
+import { SHORT_DELAY_IN_MS } from "../../constants/delays";
+import { HEAD, TAIL } from "../../constants/element-captions";
 
 export const QueuePage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
@@ -15,7 +17,6 @@ export const QueuePage: React.FC = () => {
   const [array, setArray] = useState<TItem[]>([]);
   const MAX_INPUT_LENGTH = 4;
   const MAX_ARRAY_LENGTH = 7;
-  const TIMEOUT = 500;
   const [queue] = useState(new Queue<TItem>(MAX_ARRAY_LENGTH));
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export const QueuePage: React.FC = () => {
     array[queue.getTail() - 1] = {value: inputValue, color: ElementStates.Changing}
     setInputValue('');
     setArray([...array]);
-    await timeDelay(TIMEOUT);
+    await timeDelay(SHORT_DELAY_IN_MS);
     array[queue.getTail() - 1] = {value: inputValue, color: ElementStates.Default};
     setArray([...array]);
     setIsLoading(false);
@@ -43,7 +44,7 @@ export const QueuePage: React.FC = () => {
   const handleDequeue =async() => {
     array[queue.getHead()].color = ElementStates.Changing
     setArray([...array]);
-    await timeDelay(TIMEOUT);
+    await timeDelay(SHORT_DELAY_IN_MS);
     array[queue.getHead()].value = '';
     array[queue.getHead()].color = ElementStates.Default;
     setArray([...array]);
@@ -94,8 +95,8 @@ export const QueuePage: React.FC = () => {
             key={index}
             index={index}
             state={item?.color}
-            head={index=== queue.getHead() && !queue.isEmpty() ? 'head' : ''}
-            tail={index === queue.getTail() - 1 && !queue.isEmpty() ? 'tail' : ''}
+            head={index=== queue.getHead() && !queue.isEmpty() ? HEAD : ''}
+            tail={index === queue.getTail() - 1 && !queue.isEmpty() ? TAIL : ''}
           />
         ))}
       </div>
