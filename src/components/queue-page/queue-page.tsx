@@ -13,7 +13,9 @@ import { HEAD, TAIL } from "../../constants/element-captions";
 
 export const QueuePage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [isDelLoading, setIsDelLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [array, setArray] = useState<TItem[]>([]);
   const MAX_INPUT_LENGTH = 4;
   const MAX_ARRAY_LENGTH = 7;
@@ -29,8 +31,8 @@ export const QueuePage: React.FC = () => {
 
   const handleQueue = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
-
+    setIsDisabled(true);
+    setIsAddLoading(true);
     queue.enqueue({value: inputValue, color: ElementStates.Default});
     array[queue.getTail() - 1] = {value: inputValue, color: ElementStates.Changing}
     setInputValue('');
@@ -38,10 +40,13 @@ export const QueuePage: React.FC = () => {
     await timeDelay(SHORT_DELAY_IN_MS);
     array[queue.getTail() - 1] = {value: inputValue, color: ElementStates.Default};
     setArray([...array]);
-    setIsLoading(false);
+    setIsAddLoading(false);
+    setIsDisabled(false);
   };
 
   const handleDequeue =async() => {
+    setIsDisabled(true);
+    setIsDelLoading(true);
     array[queue.getHead()].color = ElementStates.Changing
     setArray([...array]);
     await timeDelay(SHORT_DELAY_IN_MS);
@@ -49,6 +54,8 @@ export const QueuePage: React.FC = () => {
     array[queue.getHead()].color = ElementStates.Default;
     setArray([...array]);
     queue.dequeue();
+    setIsDelLoading(false);
+    setIsDisabled(false);
   };
 
   const handleClearQueue = () => {
@@ -67,25 +74,27 @@ export const QueuePage: React.FC = () => {
             isLimitText={true}
             maxLength={MAX_INPUT_LENGTH}
             onChange={handleChange}
+            disabled={isDisabled}
           />
           <Button
             type="submit"
             text="Добавить"
-            isLoader={isLoading}
-            disabled={!inputValue || queue.getTail() === MAX_ARRAY_LENGTH}
+            isLoader={isAddLoading}
+            disabled={!inputValue || queue.getTail() === MAX_ARRAY_LENGTH || isDisabled}
           />
           <Button
             type="button"
             text="Удалить"
+            isLoader={isDelLoading}
             onClick={handleDequeue}
-            disabled={queue.isEmpty()}
+            disabled={queue.isEmpty() || isDisabled}
           />
         </div>
         <Button
           type="reset"
           text="Очистить"
           onClick={handleClearQueue}
-          disabled={queue.isEmpty()}
+          disabled={queue.isEmpty() || isDisabled}
         />
       </form>
       <div className={styles.circleContainer}>

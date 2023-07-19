@@ -323,7 +323,7 @@ export const ListPage: React.FC = () => {
             onClick={handleDeleteByIndex}
             linkedList="big"
             isLoader={isLoadingDeleteIndex}
-            disabled={!inputIndex || isDisabled}
+            disabled={!inputIndex || isDisabled || inputIndex > array.length - 1}
           />
         </div>
       </form>

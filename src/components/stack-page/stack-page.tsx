@@ -12,8 +12,10 @@ import { SHORT_DELAY_IN_MS } from "../../constants/delays";
 
 export const StackPage: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [isDelLoading, setIsDelLoading] = useState(false);
   const [array, setArray] = useState<TItem[]>([]);
+  const [isDisabled, setIsDisabled] = useState(false);
   const [stack] = useState(new Stack<TItem>());
   const MAX_INPUT_LENGTH = 4;
 
@@ -23,7 +25,8 @@ export const StackPage: React.FC = () => {
 
   const handlePushStack = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsDisabled(true);
+    setIsAddLoading(true);
 
     stack.push({value: inputValue, color: ElementStates.Changing});
     setInputValue('');
@@ -35,15 +38,20 @@ export const StackPage: React.FC = () => {
       peak.color = ElementStates.Default;
     }
     setArray([...stack.getItems()]);
-    setIsLoading(false);
+    setIsAddLoading(false);
+    setIsDisabled(false);
   };
 
   const handlePopStack = async() => {
+    setIsDisabled(true);
+    setIsDelLoading(true);
     array[array.length - 1].color = ElementStates.Changing;
     setArray([...array]);
     await timeDelay(SHORT_DELAY_IN_MS);
     stack.pop();
     setArray([...stack.getItems()]);
+    setIsDelLoading(false);
+    setIsDisabled(false);
   };
 
   const handleClearStack = () => {
@@ -62,26 +70,28 @@ export const StackPage: React.FC = () => {
             isLimitText={true}
             maxLength={MAX_INPUT_LENGTH}
             onChange={handleChange}
+            disabled={isDisabled}
           />
           <Button
             type="submit"
             text="Добавить"
-            isLoader={isLoading}
-            disabled={!inputValue}
+            isLoader={isAddLoading}
+            disabled={!inputValue || isDisabled}
 
           />
           <Button
             type="button"
             text="Удалить"
+            isLoader={isDelLoading}
             onClick={handlePopStack}
-            disabled={!array.length}
+            disabled={!array.length || isDisabled}
           />
         </div>
         <Button
           type="reset"
           text="Очистить"
           onClick={handleClearStack}
-          disabled={!array.length}
+          disabled={!array.length || isDisabled}
         />
       </form>
       <div className={styles.circleContainer}>

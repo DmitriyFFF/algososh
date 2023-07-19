@@ -63,7 +63,11 @@ export const FibonacciPage: React.FC = () => {
       </form>
       <div className={styles.circleContainer}>
         {array.map((item, index) => (
-          <Circle letter={String(item)} key={index} />
+          <Circle
+            letter={String(item)}
+            key={index}
+            index={index}
+          />
         ))}
       </div>
     </SolutionLayout>

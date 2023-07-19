@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import { SolutionLayout } from "../ui/solution-layout/solution-layout";
 import { Button } from "../ui/button/button";
 import { RadioInput } from "../ui/radio-input/radio-input";
@@ -32,6 +32,10 @@ export const SortingPage: React.FC = () => {
     }))
     setArray(newArray);
   };
+
+  useEffect(() => {
+    randomArr();
+  }, []);
 
   const choiceSort = async(arr: TSortItem[], sort: Direction) => {
     if (sort === Direction.Ascending) {
