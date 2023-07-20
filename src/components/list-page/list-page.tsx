@@ -315,7 +315,7 @@ export const ListPage: React.FC = () => {
             onClick={handleAddByIndex}
             linkedList="big"
             isLoader={isLoadingAddIndex}
-            disabled={!inputIndex || !inputValue || isDisabled}
+            disabled={!inputIndex || !inputValue || isDisabled || inputIndex > array.length - 1 || inputIndex < 0}
           />
           <Button
             type="button"
@@ -323,7 +323,7 @@ export const ListPage: React.FC = () => {
             onClick={handleDeleteByIndex}
             linkedList="big"
             isLoader={isLoadingDeleteIndex}
-            disabled={!inputIndex || isDisabled || inputIndex > array.length - 1}
+            disabled={!inputIndex || isDisabled || inputIndex > array.length - 1 || inputIndex < 0}
           />
         </div>
       </form>
