@@ -8,34 +8,20 @@ import { StringComponent } from "../string/string";
 import { SortingPage } from "../sorting-page/sorting-page";
 import { StackPage } from "../stack-page/stack-page";
 
-import "./app.module.css";
+import styles from "./app.module.css";
 
 function App() {
   return (
-    <div className="app">
+    <div className={styles.app}>
       <BrowserRouter>
         <Routes>
-          <Route path="/">
-            <MainPage />
-          </Route>
-          <Route path="/recursion">
-            <StringComponent />
-          </Route>
-          <Route path="/fibonacci">
-            <FibonacciPage />
-          </Route>
-          <Route path="/sorting">
-            <SortingPage />
-          </Route>
-          <Route path="/stack">
-            <StackPage />
-          </Route>
-          <Route path="/queue">
-            <QueuePage />
-          </Route>
-          <Route path="/list">
-            <ListPage />
-          </Route>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/recursion" element={<StringComponent />} />
+          <Route path="/fibonacci" element={<FibonacciPage />} />
+          <Route path="/sorting" element={<SortingPage />} />
+          <Route path="/stack" element={<StackPage />} />
+          <Route path="/queue" element={<QueuePage />} />
+          <Route path="/list" element={<ListPage />} />
         </Routes>
       </BrowserRouter>
     </div>
