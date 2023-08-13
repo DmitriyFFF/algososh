@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { StringComponent } from './string';
@@ -14,7 +14,6 @@ describe('Тестирование алгоритма разворота стр�
     const input = screen.getByTestId('inputValue');
     const button = screen.getByTestId('submitButton');
     const evenString = 'even';
-
     const reverseEvenString = [...evenString].reverse().join('');
 
     userEvent.type(input, evenString);
@@ -22,8 +21,8 @@ describe('Тестирование алгоритма разворота стр�
 
     waitFor(() => {
       const circles = screen.getByTestId('circles');
-      const res = circles.map((item) => item.textContent).join('');
-      expect(res).toBe(reverseEvenString);
+      const result = circles.map((item) => item.textContent).join('');
+      expect(result).toBe(reverseEvenString);
       }
     )
   });
@@ -37,7 +36,6 @@ describe('Тестирование алгоритма разворота стр�
     const input = screen.getByTestId('inputValue');
     const button = screen.getByTestId('submitButton');
     const oddString = 'odd';
-
     const reverseOddString = [...oddString].reverse().join('');
 
     userEvent.type(input, oddString);
@@ -45,8 +43,8 @@ describe('Тестирование алгоритма разворота стр�
 
     waitFor(() => {
       const circles = screen.getByTestId('circles');
-      const res = circles.map((item) => item.textContent).join('');
-      expect(res).toBe(reverseOddString);
+      const result = circles.map((item) => item.textContent).join('');
+      expect(result).toBe(reverseOddString);
       }
     )
   });
@@ -60,7 +58,6 @@ describe('Тестирование алгоритма разворота стр�
     const input = screen.getByTestId('inputValue');
     const button = screen.getByTestId('submitButton');
     const letter = 'a';
-
     const reverseLetter = [...letter].reverse().join('');
 
     userEvent.type(input, letter);
@@ -68,8 +65,8 @@ describe('Тестирование алгоритма разворота стр�
 
     waitFor(() => {
       const circles = screen.getByTestId('circles');
-      const res = circles.map((item) => item.textContent).join('');
-      expect(res).toBe(reverseLetter);
+      const result = circles.map((item) => item.textContent).join('');
+      expect(result).toBe(reverseLetter);
       }
     )
   });
@@ -83,7 +80,6 @@ describe('Тестирование алгоритма разворота стр�
     const input = screen.getByTestId('inputValue');
     const button = screen.getByTestId('submitButton');
     const emptyString = '';
-
     const reverseEmptyString = [...emptyString].reverse().join('');
 
     userEvent.type(input, emptyString);
@@ -91,8 +87,8 @@ describe('Тестирование алгоритма разворота стр�
 
     waitFor(() => {
       const circles = screen.getByTestId('circles');
-      const res = circles.map((item) => item.textContent).join('');
-      expect(res).toBe(reverseEmptyString);
+      const result = circles.map((item) => item.textContent).join('');
+      expect(result).toBe(reverseEmptyString);
       }
     )
   });

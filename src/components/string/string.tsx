@@ -66,7 +66,7 @@ export const StringComponent: React.FC = () => {
 
   return (
     <SolutionLayout title="Строка">
-      <form className={styles.form}  data-testid="formContainer" onSubmit={onSubmit}>
+      <form className={styles.form} onSubmit={onSubmit}>
         <Input
           data-testid="inputValue"
           type="text"
