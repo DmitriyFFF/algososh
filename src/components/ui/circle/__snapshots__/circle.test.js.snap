@@ -1,308 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Кружок без буквы рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
-exports[`Кружок в состоянии changing рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   changing"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
-exports[`Кружок в состоянии default рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
-exports[`Кружок в состоянии modified рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   modified"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
-exports[`Кружок с head рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head string"
-  >
-    head
-  </div>
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
-exports[`Кружок с index рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  >
-    0
-  </p>
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail60 element"
-  />
-</div>
-`;
-
-exports[`Кружок с react-элементом в head рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  >
-    <div
-      className="content "
-    >
-      <div
-        className="text text_type_input text_color_input mb-4 absolute head element"
-      />
-      <div
-        className="circle   default"
-      >
-        <p
-          className="text text_type_circle text_color_input letter"
-        />
-      </div>
-      <p
-        className="text text_type_input text_color_input mt-4 absolute index"
-      />
-      <div
-        className="text text_type_input text_color_input mt-4 absolute tail30 element"
-      />
-    </div>
-  </div>
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
-exports[`Кружок с react-элементом в tail рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  >
-    <div
-      className="content "
-    >
-      <div
-        className="text text_type_input text_color_input mb-4 absolute head element"
-      />
-      <div
-        className="circle   default"
-      >
-        <p
-          className="text text_type_circle text_color_input letter"
-        />
-      </div>
-      <p
-        className="text text_type_input text_color_input mt-4 absolute index"
-      />
-      <div
-        className="text text_type_input text_color_input mt-4 absolute tail30 element"
-      />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Кружок с tail рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 string"
-  >
-    tail
-  </div>
-</div>
-`;
-
-exports[`Кружок с буквой рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle   default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    >
-      letter
-    </p>
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
-exports[`Кружок с пропом isSmall рендерится без ошибок 1`] = `
-<div
-  className="content "
->
-  <div
-    className="text text_type_input text_color_input mb-4 absolute head element"
-  />
-  <div
-    className="circle  small default"
-  >
-    <p
-      className="text text_type_circle text_color_input letter"
-    />
-  </div>
-  <p
-    className="text text_type_input text_color_input mt-4 absolute index"
-  />
-  <div
-    className="text text_type_input text_color_input mt-4 absolute tail30 element"
-  />
-</div>
-`;
-
 exports[`Тестирование компонента Circle Кружок без буквы рендерится без ошибок 1`] = `
 <div
   className="content "
@@ -312,6 +9,7 @@ exports[`Тестирование компонента Circle Кружок бе�
   />
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -335,6 +33,7 @@ exports[`Тестирование компонента Circle Кружок в с
   />
   <div
     className="circle   changing"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -358,6 +57,7 @@ exports[`Тестирование компонента Circle Кружок в с
   />
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -381,6 +81,7 @@ exports[`Тестирование компонента Circle Кружок в с
   />
   <div
     className="circle   modified"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -406,6 +107,7 @@ exports[`Тестирование компонента Circle Кружок с he
   </div>
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -429,6 +131,7 @@ exports[`Тестирование компонента Circle Кружок с in
   />
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -460,6 +163,7 @@ exports[`Тестирование компонента Circle Кружок с re
       />
       <div
         className="circle   default"
+        data-testid="circles"
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -475,6 +179,7 @@ exports[`Тестирование компонента Circle Кружок с re
   </div>
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -498,6 +203,7 @@ exports[`Тестирование компонента Circle Кружок с re
   />
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -517,6 +223,7 @@ exports[`Тестирование компонента Circle Кружок с re
       />
       <div
         className="circle   default"
+        data-testid="circles"
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -542,6 +249,7 @@ exports[`Тестирование компонента Circle Кружок с ta
   />
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -567,6 +275,7 @@ exports[`Тестирование компонента Circle Кружок с б
   />
   <div
     className="circle   default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -592,6 +301,7 @@ exports[`Тестирование компонента Circle Кружок с п
   />
   <div
     className="circle  small default"
+    data-testid="circles"
   >
     <p
       className="text text_type_circle text_color_input letter"

@@ -84,7 +84,7 @@ export const StringComponent: React.FC = () => {
           disabled={!inputValue}
         />
       </form>
-      <div className={styles.circleContainer} data-testid="circles">
+      <div className={styles.circleContainer}>
         {array.map((item, index) => (
           <Circle letter={item.value} key={index} state={item.color} />
         ))}
