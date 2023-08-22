@@ -68,6 +68,7 @@ export const QueuePage: React.FC = () => {
       <form className={styles.form} onSubmit={handleQueue}>
         <div className={styles.container}>
           <Input
+            data-testid="inputValue"
             type="text"
             placeholder="Введите значение"
             value={inputValue}
@@ -77,12 +78,14 @@ export const QueuePage: React.FC = () => {
             disabled={isDisabled}
           />
           <Button
+            data-testid="addButton"
             type="submit"
             text="Добавить"
             isLoader={isAddLoading}
             disabled={!inputValue || queue.getTail() === MAX_ARRAY_LENGTH || isDisabled}
           />
           <Button
+            data-testid="delButton"
             type="button"
             text="Удалить"
             isLoader={isDelLoading}
@@ -91,6 +94,7 @@ export const QueuePage: React.FC = () => {
           />
         </div>
         <Button
+          data-testid="clearButton"
           type="reset"
           text="Очистить"
           onClick={handleClearQueue}

@@ -17,7 +17,7 @@ describe('Проверка строки', function() {
     cy.get('@inputValue').type(string);
     cy.get('@inputValue').should('have.value', string);
     cy.get('@submitButton').should('be.not.disabled').click();
-    cy.get('[data-testid="circles"]').as('circles');
+    cy.get('div[data-testid=circles]').as('circles');
 
     cy.get('@circles').should(async($el) => {
       await new Promise((resolve) => setTimeout(resolve, DELAY_IN_MS));

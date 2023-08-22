@@ -20,7 +20,8 @@ describe('Проверка стека', function() {
       cy.get('@inputValue').type(stackArray[i]);
       cy.get('@addButton').should('be.not.disabled').click();
       cy.get('@inputValue').should('have.value', '');
-      cy.get('[data-testid="circles"]').as('circles');
+      cy.get('@addButton').should('be.disabled');
+      cy.get('div[data-testid=circles]').as('circles');
       cy.get('@circles').should(async($el) => {
         expect($el[i]).to.have.text(stackArray[i]);
         expect($el[i]).to.have.css('border','4px solid rgb(210, 82, 225)');
@@ -28,7 +29,6 @@ describe('Проверка стека', function() {
         expect($el[i]).to.have.css('border','4px solid rgb(0, 50, 255)');
       });
     }
-    cy.get('@addButton').should('be.disabled');
     cy.get('@delButton').should('be.not.disabled');
     cy.get('@clearButton').should('be.not.disabled');
   });
@@ -42,7 +42,7 @@ describe('Проверка стека', function() {
     cy.get('@delButton').should('be.not.disabled').click();
     cy.get('@addButton').should('be.disabled');
     cy.get('@delButton').should('be.disabled');
-    cy.get('[data-testid="circles"]').as('circles');
+    cy.get('div[data-testid=circles]').as('circles');
     cy.get('@circles').should(async($el) => {
       expect($el[stackArray.length - 1]).to.have.css('border','4px solid rgb(210, 82, 225)');
       await new Promise((resolve) => setTimeout(resolve, SHORT_DELAY_IN_MS));
@@ -50,7 +50,7 @@ describe('Проверка стека', function() {
     });
   });
 
-  it('Очистка стека происходит корректно после нажатия кнопки "Очистить"', function() {
+  it('Очистка стека выполняется корректно после нажатия кнопки "Очистить"', function() {
     const stackArray = [2,0,2,3];
     for (let i = 0; i < stackArray.length; i++) {
       cy.get('@inputValue').type(stackArray[i]);

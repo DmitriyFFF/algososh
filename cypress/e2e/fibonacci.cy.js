@@ -16,7 +16,7 @@ describe('Проверка последовательности Фибоначч
     cy.get('@inputValue').type(number);
     cy.get('@submitButton').should('be.not.disabled').click();
     cy.get('@submitButton').should('be.disabled');
-    cy.get('[data-testid="circles"]').as('circles');
+    cy.get('div[data-testid=circles]').as('circles');
 
     for (let i = 0; i < fibonacci.length; i++) {
       cy.get('@circles').should(($el) => {
