@@ -1,4 +1,5 @@
 import { DELAY_IN_MS } from '../../src/constants/delays';
+import { testString } from '../constants/constants';
 
 describe('Проверка строки', function() {
   beforeEach(function() {
@@ -13,9 +14,8 @@ describe('Проверка строки', function() {
   });
 
   it('Строка разворачивается корректно', function() {
-    const string = 'string';
-    cy.get('@inputValue').type(string);
-    cy.get('@inputValue').should('have.value', string);
+    cy.get('@inputValue').type(testString);
+    cy.get('@inputValue').should('have.value', testString);
     cy.get('@submitButton').should('be.not.disabled').click();
     cy.get('div[data-testid=circles]').as('circles');
 
@@ -24,8 +24,8 @@ describe('Проверка строки', function() {
       expect($el[0]).to.have.css('border','4px solid rgb(210, 82, 225)');
       expect($el[5]).to.have.css('border','4px solid rgb(210, 82, 225)');
       await new Promise((resolve) => setTimeout(resolve, DELAY_IN_MS));
-      expect($el[0]).to.have.text(string[5]);
-      expect($el[5]).to.have.text(string[0]);
+      expect($el[0]).to.have.text(testString[5]);
+      expect($el[5]).to.have.text(testString[0]);
       expect($el[0]).to.have.css('border','4px solid rgb(127, 224, 81)');
       expect($el[5]).to.have.css('border','4px solid rgb(127, 224, 81)');
 
@@ -33,8 +33,8 @@ describe('Проверка строки', function() {
       expect($el[1]).to.have.css('border','4px solid rgb(210, 82, 225)');
       expect($el[4]).to.have.css('border','4px solid rgb(210, 82, 225)');
       await new Promise((resolve) => setTimeout(resolve, DELAY_IN_MS));
-      expect($el[1]).to.have.text(string[4]);
-      expect($el[4]).to.have.text(string[1]);
+      expect($el[1]).to.have.text(testString[4]);
+      expect($el[4]).to.have.text(testString[1]);
       expect($el[1]).to.have.css('border','4px solid rgb(127, 224, 81)');
       expect($el[4]).to.have.css('border','4px solid rgb(127, 224, 81)');
 
@@ -42,8 +42,8 @@ describe('Проверка строки', function() {
       expect($el[2]).to.have.css('border','4px solid rgb(210, 82, 225)');
       expect($el[3]).to.have.css('border','4px solid rgb(210, 82, 225)');
       await new Promise((resolve) => setTimeout(resolve, DELAY_IN_MS));
-      expect($el[2]).to.have.text(string[3]);
-      expect($el[3]).to.have.text(string[2]);
+      expect($el[2]).to.have.text(testString[3]);
+      expect($el[3]).to.have.text(testString[2]);
       expect($el[2]).to.have.css('border','4px solid rgb(127, 224, 81)');
       expect($el[3]).to.have.css('border','4px solid rgb(127, 224, 81)');
     });

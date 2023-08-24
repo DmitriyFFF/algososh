@@ -1,3 +1,5 @@
+import { fibonacciArray, fibonacciNumber } from "../constants/constants";
+
 describe('Проверка последовательности Фибоначчи', function() {
   beforeEach(function() {
     cy.visit('http://localhost:3000/fibonacci');
@@ -11,16 +13,14 @@ describe('Проверка последовательности Фибоначч
   });
 
   it('Числа генерируются корректно', function() {
-    const number = 5;
-    const fibonacci = [1,1,2,3,5,8];
-    cy.get('@inputValue').type(number);
+    cy.get('@inputValue').type(fibonacciNumber);
     cy.get('@submitButton').should('be.not.disabled').click();
     cy.get('@submitButton').should('be.disabled');
     cy.get('div[data-testid=circles]').as('circles');
 
-    for (let i = 0; i < fibonacci.length; i++) {
+    for (let i = 0; i < fibonacciArray.length; i++) {
       cy.get('@circles').should(($el) => {
-        expect($el[i]).to.have.text(fibonacci[i]);
+        expect($el[i]).to.have.text(fibonacciArray[i]);
       });
     }
   });

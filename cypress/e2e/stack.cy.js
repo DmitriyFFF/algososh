@@ -1,4 +1,5 @@
 import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
+import { stackArray } from "../constants/constants";
 
 describe('Проверка стека', function() {
   beforeEach(function() {
@@ -15,7 +16,6 @@ describe('Проверка стека', function() {
   });
 
   it('Элемент добавляется в стек корректно', function() {
-    const stackArray = [2,0,2,3];
     for (let i = 0; i < stackArray.length; i++) {
       cy.get('@inputValue').type(stackArray[i]);
       cy.get('@addButton').should('be.not.disabled').click();
@@ -34,7 +34,6 @@ describe('Проверка стека', function() {
   });
 
   it('Элемент удаляется из стека корректно', function() {
-    const stackArray = [2,0,2,3];
     for (let i = 0; i < stackArray.length; i++) {
       cy.get('@inputValue').type(stackArray[i]);
       cy.get('@addButton').should('be.not.disabled').click();
@@ -51,7 +50,6 @@ describe('Проверка стека', function() {
   });
 
   it('Очистка стека выполняется корректно после нажатия кнопки "Очистить"', function() {
-    const stackArray = [2,0,2,3];
     for (let i = 0; i < stackArray.length; i++) {
       cy.get('@inputValue').type(stackArray[i]);
       cy.get('@addButton').should('be.not.disabled').click();

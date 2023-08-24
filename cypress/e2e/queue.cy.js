@@ -1,4 +1,5 @@
 import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
+import { queueArray } from "../constants/constants";
 
 describe('Проверка стека', function() {
   beforeEach(function() {
@@ -7,6 +8,9 @@ describe('Проверка стека', function() {
     cy.get('button[data-testid=addButton]').as('addButton');
     cy.get('button[data-testid=delButton]').as('delButton');
     cy.get('button[data-testid=clearButton]').as('clearButton');
+    cy.get('div[data-testid=circles]').as('circles');
+    cy.get('div[data-testid=head]').as('head');
+    cy.get('div[data-testid=tail]').as('tail');
   });
 
   it('Кнопка добавления не активна при пустом инпуте', function() {
@@ -15,10 +19,6 @@ describe('Проверка стека', function() {
   });
 
   it('Элемент добавляется в очередь корректно', function() {
-    const queueArray = [0,1,2,3,4,5,6];
-    cy.get('div[data-testid=circles]').as('circles');
-    cy.get('div[data-testid=head]').as('head');
-    cy.get('div[data-testid=tail]').as('tail');
     cy.get('@head').should('not.have.text');
     cy.get('@tail').should('not.have.text');
     for (let i = 0; i < queueArray.length; i++) {
@@ -38,9 +38,6 @@ describe('Проверка стека', function() {
   });
 
   it('Элемент удаляется из очереди корректно', function() {
-    const queueArray = [0,1,2,3,4,5,6];
-    cy.get('div[data-testid=circles]').as('circles');
-    cy.get('div[data-testid=head]').as('head');
     for (let i = 0; i < queueArray.length; i++) {
       cy.get('@inputValue').type(queueArray[i]);
       cy.get('@addButton').should('be.not.disabled').click();
@@ -58,10 +55,6 @@ describe('Проверка стека', function() {
   });
 
   it('Очистка очереди выполняется корректно после нажатия кнопки "Очистить"', function() {
-    const queueArray = [0,1,2,3,4,5,6];
-    cy.get('div[data-testid=circles]').as('circles');
-    cy.get('div[data-testid=head]').as('head');
-    cy.get('div[data-testid=tail]').as('tail');
     for (let i = 0; i < queueArray.length; i++) {
       cy.get('@inputValue').type(queueArray[i]);
       cy.get('@addButton').should('be.not.disabled').click();

@@ -256,6 +256,7 @@ export const ListPage: React.FC = () => {
       <form className={styles.form}>
         <div className={styles.container}>
           <Input
+            data-testid="inputValue"
             type="text"
             placeholder="Введите значение"
             value={inputValue}
@@ -266,6 +267,7 @@ export const ListPage: React.FC = () => {
             disabled={isDisabled}
           />
           <Button
+            data-testid="addHead"
             type="button"
             text="Добавить в head"
             onClick={handleAddHead}
@@ -274,6 +276,7 @@ export const ListPage: React.FC = () => {
             disabled={!inputValue || isDisabled}
           />
           <Button
+            data-testid="addTail"
             type="button"
             text="Добавить в tail"
             onClick={handleAddTail}
@@ -282,6 +285,7 @@ export const ListPage: React.FC = () => {
             disabled={!inputValue || isDisabled}
           />
           <Button
+            data-testid="delHead"
             type="button"
             text="Удалить из head"
             onClick={handleDeleteHead}
@@ -290,6 +294,7 @@ export const ListPage: React.FC = () => {
             disabled={!array.length || isDisabled}
           />
           <Button
+            data-testid="delTail"
             type="button"
             text="Удалить из tail"
             onClick={handleDeleteTail}
@@ -300,6 +305,7 @@ export const ListPage: React.FC = () => {
         </div>
         <div className={styles.container}>
           <Input
+            data-testid="inputIndex"
             type="number"
             placeholder="Введите индекс"
             value={inputIndex ? inputIndex : ''}
@@ -310,6 +316,7 @@ export const ListPage: React.FC = () => {
             disabled={isDisabled}
           />
           <Button
+            data-testid="addByIndex"
             type="button"
             text="Добавить по индексу"
             onClick={handleAddByIndex}
@@ -318,6 +325,7 @@ export const ListPage: React.FC = () => {
             disabled={!inputIndex || !inputValue || isDisabled || inputIndex > array.length - 1 || inputIndex < 0}
           />
           <Button
+            data-testid="delByIndex"
             type="button"
             text="Удалить по индексу"
             onClick={handleDeleteByIndex}
