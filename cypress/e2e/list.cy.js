@@ -1,10 +1,26 @@
 import { DELAY_IN_MS } from "../../src/constants/delays";
-import { defaultListArray, testListInputValue, testListIndex } from "../constants/constants";
+import { timeDelay } from "../../src/utils/constants";
+import {
+  defaultListArray,
+  testListInputValue,
+  testListIndex,
+  dataInputValue,
+  dataCircles,
+  smallCircle,
+  dataHead,
+  dataTail,
+  defaultColorBorder,
+  chagingColorBorder,
+  modifiedColorBorder
+} from "../constants/constants";
 
 describe('Проверка списка', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000/list');
-    cy.get('input[data-testid=inputValue]').as('inputValue');
+    cy.visit('list');
+    cy.get(dataInputValue).as('inputValue');
+    cy.get(dataCircles).as('circles');
+    cy.get(dataHead).as('head');
+    cy.get(dataTail).as('tail');
     cy.get('input[data-testid=inputIndex]').as('inputIndex');
     cy.get('button[data-testid=addHead]').as('addHead');
     cy.get('button[data-testid=addTail]').as('addTail');
@@ -12,9 +28,6 @@ describe('Проверка списка', function() {
     cy.get('button[data-testid=delTail]').as('delTail');
     cy.get('button[data-testid=addByIndex]').as('addByIndex');
     cy.get('button[data-testid=delByIndex]').as('delByIndex');
-    cy.get('div[data-testid=circles]').as('circles');
-    cy.get('div[data-testid=head]').as('head');
-    cy.get('div[data-testid=tail]').as('tail');
   });
 
   it('Кнопки добавления, удаления по индексу и добавления по индексу не активны при пустом инпуте', function() {
@@ -29,7 +42,7 @@ describe('Проверка списка', function() {
     for (let i = 0; i < defaultListArray.length; i++) {
       cy.get('@circles').should(($el) => {
         expect($el[i]).to.have.text(defaultListArray[i]);
-        expect($el[i]).to.have.css('border','4px solid rgb(0, 50, 255)');
+        expect($el[i]).to.have.css('border', defaultColorBorder);
       });
     }
     cy.get('@head').should('have.text', 'head');
@@ -39,15 +52,15 @@ describe('Проверка списка', function() {
   it('Добавление элемента в head выполняется корректно', function() {
     cy.get('@inputValue').type(testListInputValue);
     cy.get('@addHead').should('be.not.disabled').click();
-    cy.get('[class*=circle_small]').as('smallCircle');
+    cy.get(smallCircle).as('smallCircle');
     cy.get('@smallCircle')
       .should('have.text', testListInputValue)
-      .and('have.css', 'border', '4px solid rgb(210, 82, 225)');
+      .and('have.css', 'border', chagingColorBorder);
     cy.get('@circles').eq(0).should('have.text', testListInputValue);
     cy.get('@circles').should(async($el) => {
-      expect($el[0]).to.have.css('border','4px solid rgb(127, 224, 81)');
-      await new Promise((resolve) => setTimeout(resolve, DELAY_IN_MS));
-      expect($el[0]).to.have.css('border','4px solid rgb(0, 50, 255)');
+      expect($el[0]).to.have.css('border', modifiedColorBorder);
+      await timeDelay(DELAY_IN_MS);
+      expect($el[0]).to.have.css('border', defaultColorBorder);
     });
     cy.get('@head').eq(0).should('have.text', 'head');
     cy.get('@circles').should('have.length', defaultListArray.length + 1);
@@ -56,15 +69,15 @@ describe('Проверка списка', function() {
   it('Добавление элемента в tail выполняется корректно', function() {
     cy.get('@inputValue').type(testListInputValue);
     cy.get('@addTail').should('be.not.disabled').click();
-    cy.get('[class*=circle_small]').as('smallCircle');
+    cy.get(smallCircle).as('smallCircle');
     cy.get('@smallCircle')
       .should('have.text', testListInputValue)
-      .and('have.css', 'border', '4px solid rgb(210, 82, 225)');
+      .and('have.css', 'border', chagingColorBorder);
     cy.get('@circles').eq(defaultListArray.length - 1).should('have.text', testListInputValue);
     cy.get('@circles').should(async($el) => {
-      expect($el[defaultListArray.length]).to.have.css('border','4px solid rgb(127, 224, 81)');
-      await new Promise((resolve) => setTimeout(resolve, DELAY_IN_MS));
-      expect($el[defaultListArray.length]).to.have.css('border','4px solid rgb(0, 50, 255)');
+      expect($el[defaultListArray.length]).to.have.css('border', modifiedColorBorder);
+      await timeDelay(DELAY_IN_MS);
+      expect($el[defaultListArray.length]).to.have.css('border', defaultColorBorder);
     });
     cy.get('@tail').eq(defaultListArray.length).should('have.text', 'tail');
     cy.get('@circles').should('have.length', defaultListArray.length + 1);
@@ -74,18 +87,18 @@ describe('Проверка списка', function() {
     cy.get('@inputValue').type(testListInputValue);
     cy.get('@inputIndex').type(testListIndex);
     cy.get('@addByIndex').should('be.not.disabled').click();
-    cy.get('[class*=circle_small]').as('smallCircle');
+    cy.get(smallCircle).as('smallCircle');
     cy.get('@smallCircle')
       .should('have.text', testListInputValue)
-      .and('have.css', 'border', '4px solid rgb(210, 82, 225)');
+      .and('have.css', 'border', chagingColorBorder);
     for (let i = 0; i <= testListIndex; i++) {
       cy.get('@circles')
         .eq(testListIndex)
-        .should('have.css', 'border', '4px solid rgb(210, 82, 225)');
+        .should('have.css', 'border', chagingColorBorder);
     }
     cy.get('@circles')
       .eq(testListIndex)
-      .should('have.css', 'border', '4px solid rgb(127, 224, 81)')
+      .should('have.css', 'border', modifiedColorBorder)
       .and('have.text', testListInputValue);
     cy.get('@circles').should('have.length', defaultListArray.length + 1);
   });
@@ -93,10 +106,10 @@ describe('Проверка списка', function() {
   it('Удаление элемента из head выполняется корректно', function() {
     cy.get('@delHead').should('be.not.disabled').click();
     cy.get('@circles').eq(0).should('have.text', '');
-    cy.get('[class*=circle_small]').as('smallCircle');
+    cy.get(smallCircle).as('smallCircle');
     cy.get('@smallCircle')
       .should('have.text', defaultListArray[0])
-      .and('have.css', 'border', '4px solid rgb(210, 82, 225)');
+      .and('have.css', 'border', chagingColorBorder);
     cy.get('@head').eq(0).should('have.text', 'head');
     cy.get('@circles').should('have.length', defaultListArray.length - 1);
   });
@@ -104,10 +117,10 @@ describe('Проверка списка', function() {
   it('Удаление элемента из tail выполняется корректно', function() {
     cy.get('@delTail').should('be.not.disabled').click();
     cy.get('@circles').eq(defaultListArray.length - 1).should('have.text', '');
-    cy.get('[class*=circle_small]').as('smallCircle');
+    cy.get(smallCircle).as('smallCircle');
     cy.get('@smallCircle')
       .should('have.text', defaultListArray[defaultListArray.length - 1])
-      .and('have.css', 'border', '4px solid rgb(210, 82, 225)');
+      .and('have.css', 'border', chagingColorBorder);
     cy.get('@tail').eq(defaultListArray.length - 2).should('have.text', 'tail');
     cy.get('@circles').should('have.length', defaultListArray.length - 1);
   });
@@ -115,12 +128,12 @@ describe('Проверка списка', function() {
   it('Удаление элемента по индексу выполняется корректно', function() {
     cy.get('@inputIndex').type(testListIndex);
     cy.get('@delByIndex').should('be.not.disabled').click();
-    cy.get('@circles').should('have.css', 'border', '4px solid rgb(210, 82, 225)');
+    cy.get('@circles').should('have.css', 'border', chagingColorBorder);
     cy.get('@circles').should('have.not.text');
-    cy.get('[class*=circle_small]').as('smallCircle');
+    cy.get(smallCircle).as('smallCircle');
     cy.get('@smallCircle')
       .should('have.text', defaultListArray[testListIndex])
-      .and('have.css', 'border', '4px solid rgb(210, 82, 225)');
+      .and('have.css', 'border', chagingColorBorder);
     cy.get('@circles').should('have.length', defaultListArray.length - 1);
   });
 });

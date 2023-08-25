@@ -1,16 +1,28 @@
 import { SHORT_DELAY_IN_MS } from "../../src/constants/delays";
-import { queueArray } from "../constants/constants";
+import { timeDelay } from "../../src/utils/constants";
+import {
+  queueArray,
+  dataInputValue,
+  dataAddBtn,
+  dataDeleteBtn,
+  dataClearBtn,
+  dataCircles,
+  dataHead,
+  dataTail,
+  defaultColorBorder,
+  chagingColorBorder
+} from "../constants/constants";
 
 describe('Проверка стека', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000/queue');
-    cy.get('input[data-testid=inputValue]').as('inputValue');
-    cy.get('button[data-testid=addButton]').as('addButton');
-    cy.get('button[data-testid=delButton]').as('delButton');
-    cy.get('button[data-testid=clearButton]').as('clearButton');
-    cy.get('div[data-testid=circles]').as('circles');
-    cy.get('div[data-testid=head]').as('head');
-    cy.get('div[data-testid=tail]').as('tail');
+    cy.visit('queue');
+    cy.get(dataInputValue).as('inputValue');
+    cy.get(dataAddBtn).as('addButton');
+    cy.get(dataDeleteBtn).as('delButton');
+    cy.get(dataClearBtn).as('clearButton');
+    cy.get(dataCircles).as('circles');
+    cy.get(dataHead).as('head');
+    cy.get(dataTail).as('tail');
   });
 
   it('Кнопка добавления не активна при пустом инпуте', function() {
@@ -29,9 +41,9 @@ describe('Проверка стека', function() {
       cy.get('@addButton').should('be.disabled');
       cy.get('@circles').should(async($el) => {
         expect($el[i]).to.have.text(queueArray[i]);
-        expect($el[i]).to.have.css('border','4px solid rgb(210, 82, 225)');
-        await new Promise((resolve) => setTimeout(resolve, SHORT_DELAY_IN_MS));
-        expect($el[i]).to.have.css('border','4px solid rgb(0, 50, 255)');
+        expect($el[i]).to.have.css('border', chagingColorBorder);
+        await timeDelay(SHORT_DELAY_IN_MS);
+        expect($el[i]).to.have.css('border',defaultColorBorder);
       });
       cy.get('@tail').should('have.text', 'tail');
     }
@@ -45,9 +57,9 @@ describe('Проверка стека', function() {
     cy.get('@head').should('have.text', 'head');
     cy.get('@delButton').should('be.not.disabled').click();
     cy.get('@circles').should(async($el) => {
-      expect($el[0]).to.have.css('border','4px solid rgb(210, 82, 225)');
-      await new Promise((resolve) => setTimeout(resolve, SHORT_DELAY_IN_MS));
-      expect($el[0]).to.have.css('border','4px solid rgb(0, 50, 255)');
+      expect($el[0]).to.have.css('border', chagingColorBorder);
+      await timeDelay(SHORT_DELAY_IN_MS);
+      expect($el[0]).to.have.css('border', defaultColorBorder);
       expect($el[0]).to.have.text('');
     });
     cy.get('@head').eq(0).should('not.have.text');

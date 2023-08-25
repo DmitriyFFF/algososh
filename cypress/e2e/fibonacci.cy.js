@@ -1,10 +1,16 @@
-import { fibonacciArray, fibonacciNumber } from "../constants/constants";
+import {
+  fibonacciArray,
+  fibonacciNumber,
+  dataInputValue,
+  dataSubmitBtn,
+  dataCircles
+} from "../constants/constants";
 
 describe('Проверка последовательности Фибоначчи', function() {
   beforeEach(function() {
-    cy.visit('http://localhost:3000/fibonacci');
-    cy.get('input[data-testid=inputValue]').as('inputValue');
-    cy.get('button[data-testid=submitButton]').as('submitButton');
+    cy.visit('fibonacci');
+    cy.get(dataInputValue).as('inputValue');
+    cy.get(dataSubmitBtn).as('submitButton');
   });
 
   it('Кнопка добавления не активна при пустом инпуте', function() {
@@ -16,7 +22,7 @@ describe('Проверка последовательности Фибоначч
     cy.get('@inputValue').type(fibonacciNumber);
     cy.get('@submitButton').should('be.not.disabled').click();
     cy.get('@submitButton').should('be.disabled');
-    cy.get('div[data-testid=circles]').as('circles');
+    cy.get(dataCircles).as('circles');
 
     for (let i = 0; i < fibonacciArray.length; i++) {
       cy.get('@circles').should(($el) => {

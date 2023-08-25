@@ -1,25 +1,25 @@
 describe('Работоспособность перехода по страницам', function() {
   it('Страница String запущена', function() {
-    cy.visit('http://localhost:3000/recursion');
+    cy.visit('recursion');
   });
 
   it('Страница Fibonacci запущена', function() {
-    cy.visit('http://localhost:3000/fibonacci');
+    cy.visit('fibonacci');
   });
 
   it('Страница Sorting запущена', function() {
-    cy.visit('http://localhost:3000/sorting');
+    cy.visit('sorting');
   });
 
   it('Страница Stack запущена', function() {
-    cy.visit('http://localhost:3000/stack');
+    cy.visit('stack');
   });
 
   it('Страница Queue запущена', function() {
-    cy.visit('http://localhost:3000/queue');
+    cy.visit('queue');
   });
 
   it('Страница List запущена', function() {
-    cy.visit('http://localhost:3000/list');
+    cy.visit('list');
   });
 });
