@@ -41,7 +41,7 @@ export const FibonacciPage: React.FC = () => {
       }
     }
     setIsLoading(false);
-    await timeDelay(SHORT_DELAY_IN_MS);
+    // await timeDelay(SHORT_DELAY_IN_MS);
     setInputValue(0);
   };
 
@@ -49,12 +49,14 @@ export const FibonacciPage: React.FC = () => {
     <SolutionLayout title="Последовательность Фибоначчи">
      <form className={styles.form} onSubmit={onSubmit}>
         <Input
+          data-testid="inputValue"
           type="number"
           isLimitText={true}
           max={MAX_NUMBER}
           onChange={handleChange}
         />
         <Button
+          data-testid="submitButton"
           type="submit"
           text="Расчитать"
           isLoader={isLoading}

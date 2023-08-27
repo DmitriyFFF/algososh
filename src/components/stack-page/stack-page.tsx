@@ -64,6 +64,7 @@ export const StackPage: React.FC = () => {
       <form className={styles.form} onSubmit={handlePushStack}>
         <div className={styles.container}>
           <Input
+            data-testid="inputValue"
             type="text"
             placeholder="Введите значение"
             value={inputValue}
@@ -73,6 +74,7 @@ export const StackPage: React.FC = () => {
             disabled={isDisabled}
           />
           <Button
+            data-testid="addButton"
             type="submit"
             text="Добавить"
             isLoader={isAddLoading}
@@ -80,6 +82,7 @@ export const StackPage: React.FC = () => {
 
           />
           <Button
+            data-testid="delButton"
             type="button"
             text="Удалить"
             isLoader={isDelLoading}
@@ -88,13 +91,14 @@ export const StackPage: React.FC = () => {
           />
         </div>
         <Button
+          data-testid="clearButton"
           type="reset"
           text="Очистить"
           onClick={handleClearStack}
           disabled={!array.length || isDisabled}
         />
       </form>
-      <div className={styles.circleContainer}>
+      <div className={styles.circleContainer} data-testid="circle-container">
         {array.map((item, index) => (
           <Circle
             letter={item.value}

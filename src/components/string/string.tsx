@@ -12,6 +12,7 @@ import { DELAY_IN_MS } from "../../constants/delays";
 export const StringComponent: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isDisabled,setIsDisabled] = useState(false);
   const [array, setArray] = useState<TItem[]>([]);
   const MAX_INPUT_LENGTH = 12;
 
@@ -20,6 +21,7 @@ export const StringComponent: React.FC = () => {
   };
 
   const reverseString = async (inputArray: TItem[]) => {
+    setIsDisabled(true);
     setIsLoading(true);
     setArray([...inputArray]);
 
@@ -50,6 +52,7 @@ export const StringComponent: React.FC = () => {
       end --;
     }
     setIsLoading(false);
+    setIsDisabled(false);
   }
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -65,16 +68,20 @@ export const StringComponent: React.FC = () => {
     <SolutionLayout title="Строка">
       <form className={styles.form} onSubmit={onSubmit}>
         <Input
+          data-testid="inputValue"
           type="text"
           value={inputValue}
           isLimitText={true}
           maxLength={MAX_INPUT_LENGTH}
           onChange={handleChange}
+          disabled={isDisabled}
         />
         <Button
+          data-testid="submitButton"
           type="submit"
           text="Развернуть"
           isLoader={isLoading}
+          disabled={!inputValue}
         />
       </form>
       <div className={styles.circleContainer}>

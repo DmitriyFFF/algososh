@@ -124,12 +124,14 @@ export const SortingPage: React.FC = () => {
         <div className={styles.radioContainer}>
           <RadioInput
             label="Выбор"
+            data-testid="choiceRadio"
             checked={radioName === "Выбор" ? true : false}
             value="Выбор"
             onChange={onChange}
           />
           <RadioInput
             label="Пузырёк"
+            data-testid="bubbleRadio"
             checked={radioName === "Пузырёк" ? true : false}
             value="Пузырёк"
             onChange={onChange}
@@ -139,6 +141,7 @@ export const SortingPage: React.FC = () => {
           <Button
             type="button"
             text="По возрастанию"
+            data-testid="ascendingButton"
             sorting={Direction.Ascending}
             isLoader={isLoading.isAscending}
             onClick={() => {onSortClick(Direction.Ascending)}}
@@ -147,6 +150,7 @@ export const SortingPage: React.FC = () => {
           <Button
             type="button"
             text="По убыванию"
+            data-testid="descendingButton"
             sorting={Direction.Descending}
             isLoader={isLoading.isDescending}
             onClick={() => {onSortClick(Direction.Descending)}}
@@ -156,10 +160,11 @@ export const SortingPage: React.FC = () => {
         <Button
           type="submit"
           text="Новый массив"
+          data-testid="newArray"
           disabled={isLoading.isLoading}
         />
       </form>
-      <div className={styles.container}>
+      <div className={styles.container} data-testid="columns">
         {array.map((item, index) => (
           <Column index={Number(item.value)} key={index} state={item.color} />
         ))}
